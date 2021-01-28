@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diffutilpractice.model.HourlyWeatherModel
 import kotlinx.android.synthetic.main.item_hourly_weather.view.*
@@ -11,6 +12,9 @@ import kotlinx.android.synthetic.main.item_hourly_weather.view.*
 class HourlyWeatherAdapter (
     private val hourlyWeatherList: ArrayList<HourlyWeatherModel>
 ) : RecyclerView.Adapter<HourlyWeatherAdapter.HourlyWeatherViewHolder>() {
+
+    private val asyncDiffer = AsyncListDiffer(this, HourlyWeatherDiffItemCallback())
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HourlyWeatherViewHolder =
         HourlyWeatherViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_hourly_weather, parent, false))
 
@@ -18,6 +22,15 @@ class HourlyWeatherAdapter (
 
     override fun onBindViewHolder(holder: HourlyWeatherViewHolder, position: Int) {
         holder.bind(hourlyWeatherList[position])
+    }
+
+    fun changeList(newHourlyWeatherList: ArrayList<HourlyWeatherModel>) {
+        asyncDiffer.submitList(newHourlyWeatherList)
+        /**
+         * submitList 메소드의 역할
+         * 1. 업데이트 해야 할 부분 확인
+         * 2. newList로 recyclerview list를 업데이트
+         */
     }
 
     class HourlyWeatherViewHolder(view: View) : RecyclerView.ViewHolder(view) {
