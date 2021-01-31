@@ -3,11 +3,13 @@
 
 ### Why
 리스트 아이템이 바뀌어 이를 RecyclerView에 알려야 하는 상황에서 다음 두 방법을 가장 많이 사용
+
 **notifyDataSetChanged() 사용**
 - 리스트 내 실제 변화를 알지 못하고 모든 아이템이 바뀌었다고 생각
 - 따라서, RecyclerView는 모든 뷰를 다시 생성 -> very expansive
 
 **Adapter의 인스턴스를 새로 생성**
+
 -> notifyDataSetChanged() 사용 시 보다 더 큰 리소스와 시간 필요 -> even worse
 ### How
 - Eugene W. Myers’s의 차이 알고리즘을 이용
