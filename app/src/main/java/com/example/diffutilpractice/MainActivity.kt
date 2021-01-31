@@ -9,14 +9,16 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val hourlyWeatherList: ArrayList<HourlyWeatherModel> = arrayListOf(
+    private var hourlyWeatherList: ArrayList<HourlyWeatherModel> = arrayListOf(
         HourlyWeatherModel(9, "rain", 0),
         HourlyWeatherModel(10, "snow", 0),
         HourlyWeatherModel(11, "snow", 1),
         HourlyWeatherModel(12, "clear sky", 4),
         HourlyWeatherModel(13, "rain", -1)
     )
-    val adapter = HourlyWeatherAdapter(hourlyWeatherList)
+    val adapter = HourlyWeatherAdapter().apply {
+        changeList(hourlyWeatherList)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +28,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addNewItem(view: View) {
-        hourlyWeatherList.add(HourlyWeatherModel(14, "added item", 99))
-        adapter.notifyDataSetChanged()
+        val newHourlyWeatherList = ArrayList<HourlyWeatherModel>().apply {
+            addAll(hourlyWeatherList)
+            add(HourlyWeatherModel(14, "added item", 99))
+        }
+
+        adapter.changeList(newHourlyWeatherList)
+        hourlyWeatherList = newHourlyWeatherList
     }
 }
