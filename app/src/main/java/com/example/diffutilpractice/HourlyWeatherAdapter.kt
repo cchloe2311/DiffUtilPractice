@@ -9,19 +9,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.diffutilpractice.model.HourlyWeatherModel
 import kotlinx.android.synthetic.main.item_hourly_weather.view.*
 
-class HourlyWeatherAdapter (
-    private val hourlyWeatherList: ArrayList<HourlyWeatherModel>
-) : RecyclerView.Adapter<HourlyWeatherAdapter.HourlyWeatherViewHolder>() {
+class HourlyWeatherAdapter : RecyclerView.Adapter<HourlyWeatherAdapter.HourlyWeatherViewHolder>() {
 
     private val asyncDiffer = AsyncListDiffer(this, HourlyWeatherDiffItemCallback())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HourlyWeatherViewHolder =
         HourlyWeatherViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_hourly_weather, parent, false))
 
-    override fun getItemCount(): Int = hourlyWeatherList.size
+    override fun getItemCount(): Int = asyncDiffer.currentList.size
 
     override fun onBindViewHolder(holder: HourlyWeatherViewHolder, position: Int) {
-        holder.bind(hourlyWeatherList[position])
+        holder.bind(asyncDiffer.currentList[position])
     }
 
     fun changeList(newHourlyWeatherList: ArrayList<HourlyWeatherModel>) {

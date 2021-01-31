@@ -16,7 +16,9 @@ class MainActivity : AppCompatActivity() {
         HourlyWeatherModel(12, "clear sky", 4),
         HourlyWeatherModel(13, "rain", -1)
     )
-    val adapter = HourlyWeatherAdapter(hourlyWeatherList)
+    val adapter = HourlyWeatherAdapter().apply {
+        changeList(hourlyWeatherList)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
